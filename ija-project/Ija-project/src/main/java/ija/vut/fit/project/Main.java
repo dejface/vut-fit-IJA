@@ -21,8 +21,12 @@ public class Main extends Application {
 
         MainController controller = loader.getController();
         List<Draw> contents = new ArrayList<>();
-        contents.add(new Vehicle(new Coordinate(100,100),2));
+        contents.add(new Vehicle(new Coordinate(100,100),20, new Route(Arrays.asList(
+                new Coordinate(100,100),
+                new Coordinate(500,500)
+        ))));
         contents.add(new Street("Antoninska", new Coordinate(100,100), new Coordinate(500,500)));
         controller.setContents(contents);
+        controller.startRoute(1);
     }
 }
