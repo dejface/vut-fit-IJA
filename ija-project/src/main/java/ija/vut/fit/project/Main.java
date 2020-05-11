@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class Main extends Application {
@@ -25,29 +26,22 @@ public class Main extends Application {
 
         MainController controller = loader.getController();
         List<Draw> contents = new ArrayList<>();
-        Vehicle vehicle = new Vehicle(new Coordinate(100,100),20, new Route(Arrays.asList(
-                new Coordinate(100,100),
-                new Coordinate(200,200)
-        )));
-        //contents.add(vehicle);
+
+
 
 
         YAMLFactory factory = new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER);
         ObjectMapper mapper = new ObjectMapper(factory);
 
 
-        List<Coordinate> coordinates = new ArrayList<>();
-        coordinates.add(new Coordinate(100,200));
-        Vehicle auto = new Vehicle(coordinates.get(0),10,new Route(Arrays.asList(
-                new Coordinate(100,100),
-                new Coordinate(200,200)
-        )));
+
 
         Map mapa = mapper.readValue(new File("test.yml"), Map.class );
-        Map auticka = mapper.readValue(new File("testVehicle.yml"), Map.class );
-        auticka.getVehicles().forEach(a-> contents.add(a));
-        mapa.getStops().forEach(z-> contents.add(z));
-        mapa.getStreets().forEach(s -> contents.add(s));
+        contents.addAll(mapa.getVehicles());
+        contents.addAll(mapa.getStops());
+        contents.addAll(mapa.getStreets());
+
+
 
         controller.setContents(contents);
         controller.startRoute(1);

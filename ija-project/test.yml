@@ -75,6 +75,7 @@ stops:
   coordinates:
     x: 729.2949147942974
     y: 77.03037049584415
+
 streets:
 - &Stree0 name: "Street0"
 
@@ -97,20 +98,20 @@ streets:
 - &Stree2 name: "Street2"
 
   from:
-    x: 724.0
-    y: 364.0
-  to:
     x: 574.0
     y: 679.0
+  to:
+    x: 724.0
+    y: 364.0
 
 - &Stree3 name: "Street3"
 
   from:
-    x: 574.0
-    y: 679.0
-  to:
     x: 147.0
     y: 619.0
+  to:
+    x: 574.0
+    y: 679.0
 
 - &Stree4 name: "Street4"
 
@@ -151,11 +152,12 @@ streets:
 - &Stree8 name: "Street8"
 
   from:
-    x: 147.0
-    y: 619.0
-  to:
     x: 11.0
     y: 377.0
+
+  to:
+    x: 147.0
+    y: 619.0
 
 - &Stree9 name: "Street9"
 
@@ -163,26 +165,28 @@ streets:
     x: 11.0
     y: 377.0
   to:
-    x: 178.0
-    y: 281.0
+    x: 176.0
+    y: 277.0
 
 - &Stree10 name: "Street10"
 
   from:
-    x: 176.0
-    y: 277.0
-  to:
     x: 102.0
     y: 36.0
+
+  to:
+    x: 176.0
+    y: 277.0
 
 - &Stree11 name: "Street11"
 
   from:
-    x: 102.0
-    y: 37.0
-  to:
     x: -2.0
     y: 6.0
+
+  to:
+    x: 102.0
+    y: 37.0
 
 - &Stree12 name: "Street12"
 
@@ -250,5 +254,148 @@ streets:
     x: 11.0
     y: 377.0
   to:
-    x: -2.0
+    x: 2.0
     y: 6.0
+
+vehicles:
+  - &modraLinka
+    coords:
+      x: 2.0
+      y: 6.0
+    speed: 20
+    route:
+      route:
+        - x: 2.0
+          y: 6.0
+        - x: 102.0
+          y: 36.0
+        - x: 176.0
+          y: 277.0
+        - x: 11.0
+          y: 377.0
+        - x: 63.0
+          y: 474.0
+        - x: 272.0
+          y: 383.0
+        - x: 268.0
+          y: 36.0
+        - x: 102.0
+          y: 37.0
+        - x: 2.0
+          y: 6.0
+    stops:
+      - *Sto13
+      - *Sto12
+      - *Sto10
+      - *Sto17
+      - *Sto9
+      - *Sto8
+  - &fialovaLinka
+    coords:
+      x: 2.0
+      y: 6.0
+    speed: 20
+    route:
+      route:
+        - x: 2.0
+          y: 6.0
+        - x: 11.0
+          y: 377.0
+        - x: 147.0
+          y: 619.0
+        - x: 277.0
+          y: 543.0
+        - x: 268.0
+          y: 36.0
+        - x: 701.0
+          y: 43.0
+        - x: 724.0
+          y: 364.0
+        - x: 574.0
+          y: 679.0
+        - x: 747.0
+          y: 687.0
+    stops:
+      - *Sto10
+      - *Sto11
+      - *Sto9
+      - *Sto8
+      - *Sto0
+      - *Sto1
+      - *Sto2
+      - *Sto14
+  - &zltaLinka
+    coords:
+      x: 775.0
+      y: 132.0
+    speed: 20
+    route:
+      route:
+        - x: 775.0
+          y: 132.0
+        - x: 701.0
+          y: 43.0
+        - x: 724.0
+          y: 364.0
+        - x: 522.0
+          y: 514.0
+        - x: 277.0
+          y: 543.0
+        - x: 402.0
+          y: 357.0
+        - x: 575.0
+          y: 296.0
+        - x: 559.0
+          y: 115.0
+        - x: 268.0
+          y: 36.0
+        - x: 701.0
+          y: 43.0
+        - x: 775.0
+          y: 132.0
+    stops:
+      - *Sto18
+      - *Sto2
+      - *Sto7
+      - *Sto6
+      - *Sto5
+      - *Sto15
+      - *Sto16
+      - *Sto0
+      - *Sto1
+  - &cervenaLinka
+    coords:
+      x: 747.0
+      y: 687.0
+    speed: 20
+    route:
+      route:
+        - x: 747.0
+          y: 687.0
+        - x: 574.0
+          y: 679.0
+        - x: 147.0
+          y: 619.0
+        - x: 277.0
+          y: 543.0
+        - x: 522.0
+          y: 514.0
+        - x: 724.0
+          y: 364.0
+        - x: 574.0
+          y: 679.0
+        - x: 747.0
+          y: 687.0
+    stops:
+      - *Sto14
+      - *Sto3
+      - *Sto4
+      - *Sto5
+      - *Sto6
+      - *Sto7
+
+
+
+
+
+

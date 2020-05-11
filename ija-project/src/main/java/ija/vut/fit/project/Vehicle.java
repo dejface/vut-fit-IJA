@@ -17,6 +17,7 @@ public class Vehicle implements Draw, Updater {
     private double speed = 0;
     @JsonIgnore
     private double distance = 0;
+    private List<Stop> stops;
 
     private Route route;
     @JsonIgnore
@@ -24,10 +25,11 @@ public class Vehicle implements Draw, Updater {
 
     private Vehicle(){}
 
-    public Vehicle(Coordinate coords, double speed, Route route) {
+    public Vehicle(Coordinate coords, double speed, Route route, List<Stop> stops) {
         this.coords = coords;
         this.speed = speed;
         this.route = route;
+        this.stops = stops;
         setGui();
     }
 
@@ -52,13 +54,21 @@ public class Vehicle implements Draw, Updater {
 
     @Override
     public void update(LocalTime time) {
-        distance += speed;
-        if (distance > route.getRouteLength()){
-            return;
-        }
-        Coordinate coordinate = route.distanceOfCoords(distance);
-        inGui(coordinate);
-        coords = coordinate;
+       // for(Stop s : stops) {
+         //   if (coords.getX() == s.getCoordinates().getX() & coords.getY() == s.getCoordinates().getY()) {
+         //       distance += 1.0;
+          //  }
+          // else {
+                distance += speed;
+           // }
+            if (distance > route.getRouteLength()) {
+
+                return;
+            }
+            Coordinate coordinate = route.distanceOfCoords(distance);
+            inGui(coordinate);
+            coords = coordinate;
+      //  }
     }
 
     public Coordinate getCoords() {
@@ -71,6 +81,10 @@ public class Vehicle implements Draw, Updater {
 
     public Route getRoute() {
         return route;
+    }
+
+    public List<Stop> getStops() {
+        return stops;
     }
 
     static class VehicleFixToDraw extends StdConverter<Vehicle,Vehicle> {
