@@ -20,6 +20,7 @@ public class Vehicle implements Draw, Updater, EventHandler<MouseEvent> {
     private double speed = 0;
     @JsonIgnore
     private double distance = 0;
+    private List<Timeline> timelines;
     private List<Stop> stops;
     @JsonIgnore
     private int onStopCount = 10;
@@ -30,11 +31,12 @@ public class Vehicle implements Draw, Updater, EventHandler<MouseEvent> {
 
     private Vehicle(){}
 
-    public Vehicle(Coordinate coords, double speed, Route route, List<Stop> stops) {
+    public Vehicle(Coordinate coords, double speed, Route route, List<Stop> stops, List<Timeline> timelines) {
         this.coords = coords;
         this.speed = speed;
         this.route = route;
         this.stops = stops;
+        this.timelines = timelines;
         setGui();
     }
 
@@ -52,6 +54,7 @@ public class Vehicle implements Draw, Updater, EventHandler<MouseEvent> {
     }
 
 
+
     private void setGui() {
         gui = new ArrayList<>();
         gui.add(new Circle(coords.getX(), coords.getY(), 8, Color.RED));
@@ -66,6 +69,7 @@ public class Vehicle implements Draw, Updater, EventHandler<MouseEvent> {
                 if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 2 &
                         Math.abs(coords.getY() - s.getCoordinates().getY()) <= 2) {
                     setOnStopCount(onStopCount - 1);
+                    System.out.println(s.getId() + " " + time);
                     break;
                 }
             }
@@ -100,6 +104,10 @@ public class Vehicle implements Draw, Updater, EventHandler<MouseEvent> {
 
     public List<Stop> getStops() {
         return stops;
+    }
+
+    public List<Timeline> getTimelines() {
+        return timelines;
     }
 
     @JsonIgnore

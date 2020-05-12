@@ -20,7 +20,7 @@ public class MainController {
     private List<Draw> contents = new ArrayList<>();
     private List<Updater> updates = new ArrayList<>();
     private Timer timer;
-    private LocalTime time = LocalTime.now();
+    private LocalTime time = LocalTime.parse("06:00:00");
 
     @FXML
     private TextField speedScale;
@@ -63,7 +63,7 @@ public class MainController {
                     Platform.runLater(() -> updater.update(time));
                 }
             }
-        }, 0, (long) (100 / scale));
+        }, 0, (long) (1000 / scale));
 
     }
 }

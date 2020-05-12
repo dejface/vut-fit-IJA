@@ -34,13 +34,13 @@ public class Main extends Application {
         ObjectMapper mapper = new ObjectMapper(factory);
 
 
-
-
         Map mapa = mapper.readValue(new File("test.yml"), Map.class );
 
         contents.addAll(mapa.getStreets());
         contents.addAll(mapa.getStops());
         contents.addAll(mapa.getVehicles());
+
+        //mapa.getVehicles().forEach(vehicle -> vehicle.getTimelines().forEach(timeline -> System.out.println(timeline.getTimeList())));
 
         controller.setContents(contents);
         controller.startRoute(1);
