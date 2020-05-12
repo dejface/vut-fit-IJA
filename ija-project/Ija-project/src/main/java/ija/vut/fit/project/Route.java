@@ -1,9 +1,14 @@
 package ija.vut.fit.project;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class Route {
     private List<Coordinate> route;
+
+    public Route() {
+    }
 
     public Route(List<Coordinate> route) {
         this.route = route;
@@ -12,7 +17,7 @@ public class Route {
     private double diffCoords(Coordinate x, Coordinate y) {
         return Math.sqrt(Math.pow(x.getX() - y.getX(), 2) + Math.pow(x.getY() - y.getY(), 2));
     }
-
+    @JsonIgnore
     public Coordinate distanceOfCoords(double distance) {
         Coordinate x = null, y = null;
         double total = 0;
@@ -30,7 +35,7 @@ public class Route {
         double driven = (distance - total) / diffCoords(x, y);
         return new Coordinate(x.getX() + (y.getX() - x.getX()) * driven, x.getY() + (y.getY() - x.getY()) * driven);
     }
-
+    @JsonIgnore
     public double getRouteLength(){
         double length = 0;
         for (int i = 0; i < route.size() - 1; i++) {
@@ -38,4 +43,9 @@ public class Route {
         }
         return length;
     }
+
+    public List<Coordinate> getRoute() {
+        return route;
+    }
 }
+
