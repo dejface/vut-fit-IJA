@@ -1,0 +1,445 @@
+stops:
+- &Sto0 id: "Stop0"
+  coordinates:
+    x: 556.6377968726824
+    y: 41.31296256779429
+- &Sto1 id: "Stop1"
+  coordinates:
+    x: 589.7843553297787
+    y: 41.70031800886219
+- &Sto2 id: "Stop2"
+  coordinates:
+    x: 710.084857806195
+    y: 169.79301546907044
+- &Sto3 id: "Stop3"
+  coordinates:
+    x: 491.3094655279368
+    y: 667.3807211514666
+- &Sto4 id: "Stop4"
+  coordinates:
+    x: 348.6124843664294
+    y: 647.3296230959854
+- &Sto5 id: "Stop5"
+  coordinates:
+    x: 390.2893171516581
+    y: 529.5902440922528
+- &Sto6 id: "Stop6"
+  coordinates:
+    x: 691.5528399386062
+    y: 388.09442578816373
+- &Sto7 id: "Stop7"
+  coordinates:
+    x: 714.2715605485514
+    y: 371.2240887015707
+- &Sto8 id: "Stop8"
+  coordinates:
+    x: 271.23520165680674
+    y: 218.24969333344632
+- &Sto9 id: "Stop9"
+  coordinates:
+    x: 272.3369546642645
+    y: 280.3151127535665
+- &Sto10 id: "Stop10"
+  coordinates:
+    x: 16.652736155882394
+    y: 387.0585452185554
+- &Sto11 id: "Stop11"
+  coordinates:
+    x: 123.86335995655107
+    y: 577.8303905109217
+- &Sto12 id: "Stop12"
+  coordinates:
+    x: 165.96011832448906
+    y: 283.9211295859225
+- &Sto13 id: "Stop13"
+  coordinates:
+    x: 19.48730889931126
+    y: 12.404870921910089
+- &Sto14 id: "Stop14"
+  coordinates:
+    x: 681.2455505562323
+    y: 683.9593318176293
+- &Sto15 id: "Stop15"
+  coordinates:
+    x: 442.96451771871955
+    y: 342.5558636945555
+- &Sto16 id: "Stop16"
+  coordinates:
+    x: 567.1796131188627
+    y: 207.5318734071339
+- &Sto17 id: "Stop17"
+  coordinates:
+    x: 72.4036982166181
+    y: 469.90556680520456
+- &Sto18 id: "Stop18"
+  coordinates:
+    x: 729.2949147942974
+    y: 77.03037049584415
+
+streets:
+- &Stree0 name: "Street0"
+
+  from:
+    x: 102.0
+    y: 36.0
+  to:
+    x: 701.0
+    y: 43.0
+
+- &Stree1 name: "Street1"
+
+  from:
+    x: 701.0
+    y: 43.0
+  to:
+    x: 724.0
+    y: 364.0
+
+- &Stree2 name: "Street2"
+
+  from:
+    x: 574.0
+    y: 679.0
+  to:
+    x: 724.0
+    y: 364.0
+
+- &Stree3 name: "Street3"
+
+  from:
+    x: 147.0
+    y: 619.0
+  to:
+    x: 574.0
+    y: 679.0
+
+- &Stree4 name: "Street4"
+
+  from:
+    x: 147.0
+    y: 619.0
+  to:
+    x: 277.0
+    y: 543.0
+
+- &Stret5 name: "Street5"
+
+  from:
+    x: 277.0
+    y: 543.0
+  to:
+    x: 522.0
+    y: 514.0
+
+- &Stree6 name: "Street6"
+
+  from:
+    x: 522.0
+    y: 514.0
+  to:
+    x: 724.0
+    y: 364.0
+
+- &Stree7 name: "Street7"
+
+  from:
+    x: 277.0
+    y: 543.0
+  to:
+    x: 268.0
+    y: 36.0
+
+- &Stree8 name: "Street8"
+
+  from:
+    x: 11.0
+    y: 377.0
+
+  to:
+    x: 147.0
+    y: 619.0
+
+- &Stree9 name: "Street9"
+
+  from:
+    x: 11.0
+    y: 377.0
+  to:
+    x: 176.0
+    y: 277.0
+
+- &Stree10 name: "Street10"
+
+  from:
+    x: 102.0
+    y: 36.0
+
+  to:
+    x: 176.0
+    y: 277.0
+
+- &Stree11 name: "Street11"
+
+  from:
+    x: -2.0
+    y: 6.0
+
+  to:
+    x: 102.0
+    y: 37.0
+
+- &Stree12 name: "Street12"
+
+  from:
+    x: 574.0
+    y: 679.0
+  to:
+    x: 747.0
+    y: 687.0
+
+- &Stree13 name: "Street13"
+
+  from:
+    x: 277.0
+    y: 543.0
+  to:
+    x: 402.0
+    y: 357.0
+
+- &Stree14 name: "Street14"
+
+  from:
+    x: 402.0
+    y: 357.0
+  to:
+    x: 575.0
+    y: 296.0
+
+- &Stree15 name: "Street15"
+
+  from:
+    x: 575.0
+    y: 296.0
+  to:
+    x: 559.0
+    y: 115.0
+
+- &Stree16 name: "Street16"
+
+  from:
+    x: 559.0
+    y: 115.0
+  to:
+    x: 268.0
+    y: 36.0
+
+- &Stree17 name: "Street17"
+  from:
+    x: 272.0
+    y: 383.0
+  to:
+    x: 63.0
+    y: 474.0
+
+- &Stree18 name: "Street18"
+  from:
+    x: 701.0
+    y: 43.0
+  to:
+    x: 775.0
+    y: 132.0
+
+- &Stree19 name: "Street19"
+  from:
+    x: 11.0
+    y: 377.0
+  to:
+    x: 2.0
+    y: 6.0
+
+vehicles:
+  - &modraLinka
+    coords:
+      x: 2.0
+      y: 6.0
+    speed: 20
+    route:
+      route:
+        - x: 2.0
+          y: 6.0
+        - x: 102.0
+          y: 36.0
+        - x: 176.0
+          y: 277.0
+        - x: 11.0
+          y: 377.0
+        - x: 63.0
+          y: 474.0
+        - x: 272.0
+          y: 383.0
+        - x: 268.0
+          y: 36.0
+        - x: 102.0
+          y: 37.0
+        - x: 2.0
+          y: 6.0
+    stops:
+      - *Sto13
+      - *Sto12
+      - *Sto10
+      - *Sto17
+      - *Sto9
+      - *Sto8
+    timelines:
+      - &first
+        timeList:
+         - "06:00:10"
+         - "06:03:13"
+         - "06:04:58"
+         - "06:06:02"
+         - "06:08:51"
+         - "06:09:31"
+         - "06:13:17"
+  - &fialovaLinka
+    coords:
+      x: 2.0
+      y: 6.0
+    speed: 20
+    route:
+      route:
+        - x: 2.0
+          y: 6.0
+        - x: 11.0
+          y: 377.0
+        - x: 147.0
+          y: 619.0
+        - x: 277.0
+          y: 543.0
+        - x: 268.0
+          y: 36.0
+        - x: 701.0
+          y: 43.0
+        - x: 724.0
+          y: 364.0
+        - x: 574.0
+          y: 679.0
+        - x: 747.0
+          y: 687.0
+    stops:
+      - *Sto10
+      - *Sto11
+      - *Sto9
+      - *Sto8
+      - *Sto0
+      - *Sto1
+      - *Sto2
+      - *Sto14
+    timelines:
+      - &first
+        timeList:
+          - "06:03:12"
+          - "06:05:10"
+          - "06:09:09"
+          - "06:09:49"
+          - "06:13:54"
+          - "06:14:19"
+          - "06:16:27"
+          - "06:22:02"
+
+  - &zltaLinka
+    coords:
+      x: 775.0
+      y: 132.0
+    speed: 20
+    route:
+      route:
+        - x: 775.0
+          y: 132.0
+        - x: 701.0
+          y: 43.0
+        - x: 724.0
+          y: 364.0
+        - x: 522.0
+          y: 514.0
+        - x: 277.0
+          y: 543.0
+        - x: 402.0
+          y: 357.0
+        - x: 575.0
+          y: 296.0
+        - x: 559.0
+          y: 115.0
+        - x: 268.0
+          y: 36.0
+        - x: 701.0
+          y: 43.0
+        - x: 775.0
+          y: 132.0
+    stops:
+      - *Sto18
+      - *Sto2
+      - *Sto7
+      - *Sto6
+      - *Sto5
+      - *Sto15
+      - *Sto16
+      - *Sto0
+      - *Sto1
+    timelines:
+      - &first
+        timeList:
+          - "06:00:36"
+          - "06:02:11"
+          - "06:04:03"
+          - "06:04:26"
+          - "06:07:27"
+          - "06:10:47"
+          - "06:12:50"
+          - "06:18:41"
+          - "06:19:06"
+          - "06:20:33"
+  - &cervenaLinka
+    coords:
+      x: 747.0
+      y: 687.0
+    speed: 20
+    route:
+      route:
+        - x: 747.0
+          y: 687.0
+        - x: 574.0
+          y: 679.0
+        - x: 147.0
+          y: 619.0
+        - x: 277.0
+          y: 543.0
+        - x: 522.0
+          y: 514.0
+        - x: 724.0
+          y: 364.0
+        - x: 574.0
+          y: 679.0
+        - x: 747.0
+          y: 687.0
+    stops:
+      - *Sto14
+      - *Sto3
+      - *Sto4
+      - *Sto5
+      - *Sto6
+      - *Sto7
+    timelines:
+      - &first
+        timeList:
+          - "06:00:33"
+          - "06:02:18"
+          - "06:03:38"
+          - "06:07:42"
+          - "06:10:43"
+          - "06:11:06"
+          - "06:15:09"
+
+
+
+
+
