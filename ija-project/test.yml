@@ -292,6 +292,7 @@ vehicles:
       - *Sto8
     timelines:
       - &first
+        startTime: "06:00:00"
         timeList:
          - "06:00:10"
          - "06:03:13"
@@ -300,6 +301,16 @@ vehicles:
          - "06:08:51"
          - "06:09:31"
          - "06:13:17"
+      - &second
+        startTime: "07:00:00"
+        timeList:
+          - "07:00:10"
+          - "07:03:13"
+          - "07:04:58"
+          - "07:06:02"
+          - "07:08:51"
+          - "07:09:31"
+          - "07:13:17"
   - &fialovaLinka
     coords:
       x: 2.0
@@ -336,6 +347,7 @@ vehicles:
       - *Sto14
     timelines:
       - &first
+        startTime: "06:00:00"
         timeList:
           - "06:03:12"
           - "06:05:10"
@@ -387,6 +399,7 @@ vehicles:
       - *Sto1
     timelines:
       - &first
+        startTime: "06:00:00"
         timeList:
           - "06:00:36"
           - "06:02:11"
@@ -430,6 +443,7 @@ vehicles:
       - *Sto7
     timelines:
       - &first
+        startTime: "06:00:00"
         timeList:
           - "06:00:33"
           - "06:02:18"
