@@ -11,8 +11,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class Main extends Application {
@@ -40,7 +38,6 @@ public class Main extends Application {
         contents.addAll(mapa.getStops());
         contents.addAll(mapa.getVehicles());
 
-        //mapa.getVehicles().forEach(vehicle -> vehicle.getTimelines().forEach(timeline -> System.out.println(timeline.getTimeList())));
 
         controller.setContents(contents);
         controller.startRoute(1);

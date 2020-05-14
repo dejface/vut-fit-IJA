@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -16,7 +17,10 @@
          <content>
             <Group>
                <children>
-                  <Pane fx:id="paneContent" onScroll="#onZoom" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: grey;" />
+                  <Pane fx:id="paneContent" onScroll="#onZoom" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: grey;">
+                     <children>
+                        <DialogPane fx:id="dialog" layoutX="14.0" layoutY="320.0" visible="false" />
+                     </children></Pane>
                </children>
             </Group>
          </content>
@@ -25,11 +29,17 @@
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="speedScale" layoutX="26.0" layoutY="89.0" />
-            <Button layoutX="115.0" layoutY="127.0" mnemonicParsing="false" onAction="#onSpeedChange" text="Confirm" />
-            <Separator layoutY="71.0" prefWidth="200.0" />
+            <TextField fx:id="speedScale" layoutX="26.0" layoutY="225.0" />
+            <Button layoutX="115.0" layoutY="264.0" mnemonicParsing="false" onAction="#onSpeedChange" text="Confirm" />
+            <Separator layoutY="179.0" prefWidth="200.0" />
             <TextField fx:id="timerField" layoutX="26.0" layoutY="29.0" />
             <Text layoutX="26.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIME" />
-         </children></AnchorPane>
+            <TextField fx:id="timeChange" layoutX="26.0" layoutY="108.0" />
+            <Text layoutX="26.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORWARD TIME" />
+            <Button layoutX="115.0" layoutY="142.0" mnemonicParsing="false" onAction="#onTimeChange" text="Confirm" />
+            <Text layoutX="26.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SPEED UP" />
+            <Separator layoutY="68.0" prefWidth="200.0" />
+         </children>
+      </AnchorPane>
    </right>
 </BorderPane>

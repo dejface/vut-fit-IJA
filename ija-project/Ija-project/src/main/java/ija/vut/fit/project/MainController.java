@@ -2,41 +2,62 @@ package ija.vut.fit.project;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 
-import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
 public class MainController {
 
-    @FXML
-    private Pane paneContent;
+    @FXML Pane paneContent;
+    @FXML private TextField speedScale;
+    @FXML private TextField timerField;
+    @FXML private TextField timeChange;
 
     private List<Draw> contents = new ArrayList<>();
     private List<Updater> updates = new ArrayList<>();
     private Timer timer;
     private LocalTime time = LocalTime.parse("06:00:00");
+    //private List<Draw> vehicles = new ArrayList<>();
+    //private List<Draw> streets = new ArrayList<>();
+    static int count = 0;
+    private boolean isRestart = false;
 
-    @FXML
-    private TextField speedScale;
-    @FXML
-    private TextField timerField;
 
     public MainController() {
+
     }
 
     @FXML
     private void onSpeedChange(){
-        float scale = Float.parseFloat(speedScale.getText());
-        timer.cancel();
-        startRoute(scale);
+        try{
+            float scale = Float.parseFloat(speedScale.getText());
+            if (!(scale > 0)){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Invlid float numer! Please enter valid one");
+                alert.showAndWait();
+            }
+            timer.cancel();
+            startRoute(scale);
+        } catch (NumberFormatException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Invlid float numer! Please enter valid one");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void onTimeChange(){
+        try {
+            time = LocalTime.parse(timeChange.getText());
+            isRestart = true;
+            count = 0;
+        } catch (Exception e){
+
+        }
     }
 
     @FXML
@@ -58,22 +79,36 @@ public class MainController {
                 updates.add((Updater) draw);
             }
         }
+     //   this.getVehicles();
     }
-
+/*
+    public void getVehicles(){
+        for (Draw draw : this.contents){
+            if (draw instanceof Vehicle) this.vehicles.add(draw);
+            else if (draw instanceof Street) this.streets.add(draw);
+        }
+    }
+*/
     public void startRoute(double scale){
         timer = new Timer(false);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 time = time.plusSeconds(1);
-                try {
-                    timerField.setText(time.toString());
-                } catch (Exception e){
-
-                }
                 for (Updater updater : updates){
-                    updater.update(time);
+                    updater.update(time, isRestart);
                 }
+                if (isRestart && (count == 0)){
+                    count++;
+                    isRestart = false;
+                }
+                Platform.runLater(()-> {
+                    try {
+                        timerField.setText(time.toString());
+                    } catch (Exception e){
+
+                    }
+                });
 
             }
         }, 0, (long) (1000 / scale));
