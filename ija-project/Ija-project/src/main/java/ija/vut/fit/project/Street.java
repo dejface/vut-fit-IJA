@@ -8,7 +8,9 @@ import javafx.scene.text.Text;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Class which represents Street object
+ */
 public class Street implements Draw {
     private Coordinate from, to;
     private String name;
@@ -17,12 +19,21 @@ public class Street implements Draw {
     public Street() {
     }
 
+    /**
+     * Constructor for Street object
+     * @param name - name of the street
+     * @param from - starting coordinates
+     * @param to - ending coordinates
+     */
     public Street(String name, Coordinate from, Coordinate to) {
         this.name = name;
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Returns list of shapes which represents street and its name
+     */
     @JsonIgnore
     @Override
     public List<Shape> getGUI() {
@@ -32,14 +43,23 @@ public class Street implements Draw {
         );
     }
 
+    /**
+     * @return starting coordinates
+     */
     public Coordinate getFrom() {
         return from;
     }
 
+    /**
+     * @return ending coordinates
+     */
     public Coordinate getTo() {
         return to;
     }
 
+    /**
+     * @return street name
+     */
     public String getName() {
         return name;
     }

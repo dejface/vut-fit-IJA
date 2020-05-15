@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/**
+ * Class representing vehicle object
+ */
 @JsonDeserialize(converter = Vehicle.VehicleFixToDraw.class)
 public class Vehicle implements Draw, Updater {
     private Coordinate coords;
@@ -48,6 +50,15 @@ public class Vehicle implements Draw, Updater {
 
     private Vehicle(){}
 
+    /**
+     * Constructor for Vehicle object
+     *
+     * @param coords - coordinations of object
+     * @param speed - traversal speed
+     * @param route - route of the vehicle (list of streets)
+     * @param stops - stops of the vehicle (list of stops)
+     * @param timelines - time schedule of departures
+     */
     public Vehicle(Coordinate coords, double speed, Route route, List<Stop> stops, List<Timeline> timelines) {
         this.coords = coords;
         this.speed = speed;
@@ -58,6 +69,10 @@ public class Vehicle implements Draw, Updater {
         setGui();
     }
 
+    /**
+     * Makes vehicle move around the map
+     * @param coordinate - current coordinates
+     */
     private void inGui(Coordinate coordinate){
         for (Shape shape : gui){
             if (shape instanceof Circle) {
@@ -69,12 +84,19 @@ public class Vehicle implements Draw, Updater {
         }
     }
 
+    /**
+     * @return - list of shapes that are shown in GUI
+     */
     @JsonIgnore
     @Override
     public List<Shape> getGUI() {
         return gui;
     }
-    
+
+    /**
+     * Changes streets color and shows a route of vehicle after mouse click
+     * @param line - number of bus line
+     */
     private void guiChange(int line){
        for (int i = 1; i < route.getRoute().size(); i++){
             gui.add(new Line(route.getRoute().get(i-1).getX(), route.getRoute().get(i-1).getY(),
@@ -88,6 +110,9 @@ public class Vehicle implements Draw, Updater {
         }
     }
 
+    /**
+     * Generates shapes which are shown later in GUI
+     */
     private void setGui() {
         gui = new ArrayList<>();
         if (count == 0) {
@@ -303,6 +328,11 @@ public class Vehicle implements Draw, Updater {
         });
     }
 
+    /**
+     * Parses localtime string to integer and converts it to seconds
+     * @param s - localtime string to be converted
+     * @return time in seconds
+     */
     private int parseTimeString(String s){
         String[] t = s.split(":");
         if (t.length == 3)
@@ -311,6 +341,12 @@ public class Vehicle implements Draw, Updater {
             return Integer.parseInt(t[0]) * 3600 + Integer.parseInt(t[1]) * 60;
     }
     static int counter =0;
+
+    /**
+     * Handles time change in simulation
+     * @param delay - delay in seconds, which is created on bus stop
+     * @param time - new localtime which was changed by user
+     */
     public void handlePort(int delay, LocalTime time) {
       //  if (this.line == 2) counter++;
         for (int i = timelineiterator; i <= timelines.size() - 1; i++){
@@ -407,7 +443,11 @@ public class Vehicle implements Draw, Updater {
         }
     }
 
-
+    /**
+     * Updates and calculates new position of vehicle
+     * @param time - localtime in simulation
+     * @param isPorted - boolean which indicates wheter time was changed by user, or not
+     */
     @Override
     public void update(LocalTime time, boolean isPorted) {
         if (this.line == 1) timelineiterator = timelineiterator1;
@@ -537,31 +577,54 @@ public class Vehicle implements Draw, Updater {
            }
        }
     }
+
+    /**
+     * @return - coordinates of object
+     */
     public Coordinate getCoords() {
         return coords;
     }
 
+    /**
+     * @return - speed of object
+     */
     public double getSpeed() {
         return speed;
     }
 
+    /**
+     * @return - root of object
+     */
     public Route getRoute() {
         return route;
     }
 
+    /**
+     * @return - stops of object
+     */
     public List<Stop> getStops() {
         return stops;
     }
 
+    /**
+     * @return - time schedule of object
+     */
     public List<Timeline> getTimelines() {
         return timelines;
     }
 
+    /**
+     * @return - count in seconds, while vehicle is on stop
+     */
     @JsonIgnore
     public  int getOnStopCount() {
         return onStopCount;
     }
 
+    /**
+     * Sets new time in seconds for vehicle to wait on stop
+     * @param onStopCount - new count
+     */
     public void setOnStopCount(int onStopCount) {
         this.onStopCount = onStopCount;
     }
