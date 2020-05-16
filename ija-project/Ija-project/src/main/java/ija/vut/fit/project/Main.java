@@ -36,7 +36,7 @@ public class Main extends Application {
         ObjectMapper mapper = new ObjectMapper(factory);
 
 
-        Map mapa = mapper.readValue(new File("test.yml"), Map.class );
+        Map mapa = mapper.readValue(new File("source.yml"), Map.class );
 
         contents.addAll(mapa.getStreets());
         contents.addAll(mapa.getStops());
