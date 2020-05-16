@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.vut.fit.project.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #b3b3b3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.vut.fit.project.MainController">
    <center>
-      <ScrollPane pannable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: #b3b3b3;" BorderPane.alignment="CENTER">
          <content>
             <Group>
                <children>
-                  <Pane fx:id="paneContent" onScroll="#onZoom" prefHeight="1000.0" prefWidth="1000.0" style="-fx-background-color: grey;">
+                  <Pane fx:id="paneContent" onScroll="#onZoom" prefHeight="1200.0" prefWidth="1200.0" style="-fx-background-color: #666666;">
                      <children>
                         <DialogPane fx:id="dialog" layoutX="14.0" layoutY="320.0" visible="false" />
                      </children></Pane>
@@ -27,18 +27,18 @@
       </ScrollPane>
    </center>
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="395.0" prefWidth="213.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="speedScale" layoutX="26.0" layoutY="225.0" />
-            <Button layoutX="115.0" layoutY="264.0" mnemonicParsing="false" onAction="#onSpeedChange" text="Confirm" />
-            <Separator layoutY="179.0" prefWidth="200.0" />
-            <TextField fx:id="timerField" layoutX="26.0" layoutY="29.0" />
+            <TextField fx:id="speedScale" layoutX="17.0" layoutY="225.0" style="-fx-background-color: #f2f2f2;" />
+            <Button layoutX="130.0" layoutY="265.0" mnemonicParsing="false" onAction="#onSpeedChange" style="-fx-background-color: #999999;" text="Confirm" />
+            <Separator layoutY="186.0" prefHeight="2.0" prefWidth="213.0" />
+            <TextField fx:id="timerField" layoutX="17.0" layoutY="29.0" style="-fx-background-color: #f2f2f2;" />
             <Text layoutX="26.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TIME" />
-            <TextField fx:id="timeChange" layoutX="26.0" layoutY="108.0" />
+            <TextField fx:id="timeChange" layoutX="17.0" layoutY="108.0" style="-fx-background-color: #f2f2f2;" />
             <Text layoutX="26.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FORWARD TIME" />
-            <Button layoutX="115.0" layoutY="142.0" mnemonicParsing="false" onAction="#onTimeChange" text="Confirm" />
-            <Text layoutX="26.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SPEED UP" />
-            <Separator layoutY="68.0" prefWidth="200.0" />
+            <Button layoutX="130.0" layoutY="148.0" mnemonicParsing="false" onAction="#onTimeChange" style="-fx-background-color: #999999;" text="Confirm" />
+            <Text layoutX="26.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SPEED UP" />
+            <Separator layoutX="-1.0" layoutY="73.0" prefHeight="0.0" prefWidth="213.0" />
          </children>
       </AnchorPane>
    </right>
