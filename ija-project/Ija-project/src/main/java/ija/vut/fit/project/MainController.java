@@ -76,11 +76,21 @@ public class MainController {
     private void onZoom(ScrollEvent event){
         event.consume();
         double zoom = event.getDeltaY();
-        if (zoom > 0.0) zoom = 1.1;
-        else zoom = 0.9;
+        if (zoom > 0.0) {
+            zoom = 1.1;
+            if (paneContent.getScaleX() <= 2.5 && paneContent.getScaleY() <= 2.5) {
+                paneContent.setScaleX(zoom * paneContent.getScaleX());
+                paneContent.setScaleY(zoom * paneContent.getScaleY());
+            }
+        }
+        else {
+            zoom = 0.9;
 
-        paneContent.setScaleX(zoom * paneContent.getScaleX());
-        paneContent.setScaleY(zoom * paneContent.getScaleY());
+            if (paneContent.getScaleX() >= 0.9 && paneContent.getScaleY() >= 0.9) {
+                paneContent.setScaleX(zoom * paneContent.getScaleX());
+                paneContent.setScaleY(zoom * paneContent.getScaleY());
+            }
+        }
     }
 
     /**
