@@ -11,8 +11,10 @@ import javafx.scene.text.Text;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class which represents Stop object
+ */
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Stop.class)
-//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Stop implements Draw{
     private String id;
     private Coordinate coordinates;
@@ -21,45 +23,46 @@ public class Stop implements Draw{
 
     private Stop(){}
 
-    public Stop(String stopId, Coordinate coordinate, Street street) {
+    /**
+     * Constructor for Stop object
+     * @param stopId - name of the stop
+     * @param coordinate - stop coordinates
+     */
+    public Stop(String stopId, Coordinate coordinate) {
         this.id = stopId;
         this.coordinates = coordinate;
-        this.onStreet = street;
     }
 
+    /**
+     * @return coordinates
+     */
     public Coordinate getCoordinates() {
         return this.coordinates;
     }
 
-
+    /**
+     * @return name of stop
+     */
     public String getId() {
         return id;
     }
 
-    @JsonIgnore
-    public Street getStreet() {
-        if (this.onStreet == null) {
-            return null;
-        } else {
-            return this.onStreet;
-        }
-    }
-
-    @JsonIgnore
-    public void setStreet(Street s) {
-        this.onStreet = s;
-    }
-
+    /**
+     * @return overriden method toString()
+     */
     @Override
     public String toString() {
         return "stop(" + getId() + ")";
     }
 
+    /**
+     * @return list of shapes which contains stops and their name
+     */
     @JsonIgnore
     @Override
     public List<Shape> getGUI() {
         return Arrays.asList(
-                new Circle(coordinates.getX(), coordinates.getY(), 8, Color.GREEN),
+                new Circle(coordinates.getX(), coordinates.getY(), 8, Color.LIGHTGRAY),
                 new Text(coordinates.getX()-25, coordinates.getY()-8, id));
     }
 }

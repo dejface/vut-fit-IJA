@@ -3,34 +3,42 @@ package ija.vut.fit.project;
 
 import java.util.Objects;
 
-
+/**
+ * Class which represents Coordinate object
+ */
 public class Coordinate {
     private double x;
     private double y;
 
     private Coordinate(){}
 
+    /**
+     * Constructor for Coordinate object
+     * @param x - coordinate x
+     * @param y - coordinate y
+     */
     public Coordinate(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * @return coordinate x
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * @return coordinate y
+     */
     public double getY() {
         return y;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
+    /**
+     * @return overriden method toString
+     */
     @Override
     public String toString() {
         return "Coordinate{" +
