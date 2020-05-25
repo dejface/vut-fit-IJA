@@ -77,15 +77,26 @@ stops:
     y: 77.03037049584415
 
 streets:
-- &Stree0 name: "Street0"
+- &Stree0a name: "Street0a"
 
   from:
     x: 102.0
     y: 36.0
   to:
+    x: 268.0
+    y: 36.0
+
+- &Stree0b name: "Street0b"
+  from:
+    x: 268.0
+    y: 36.0
+  to:
     x: 701.0
     y: 43.0
 
+  stops:
+    - *Sto0
+    - *Sto1
 - &Stree1 name: "Street1"
 
   from:
@@ -95,6 +106,8 @@ streets:
     x: 724.0
     y: 364.0
 
+  stops:
+    - *Sto2
 - &Stree2 name: "Street2"
 
   from:
@@ -103,6 +116,8 @@ streets:
   to:
     x: 724.0
     y: 364.0
+
+
 
 - &Stree3 name: "Street3"
 
@@ -113,6 +128,10 @@ streets:
     x: 574.0
     y: 679.0
 
+  stops:
+    - *Sto3
+    - *Sto4
+
 - &Stree4 name: "Street4"
 
   from:
@@ -122,7 +141,7 @@ streets:
     x: 277.0
     y: 543.0
 
-- &Stret5 name: "Street5"
+- &Stree5 name: "Street5"
 
   from:
     x: 277.0
@@ -130,6 +149,9 @@ streets:
   to:
     x: 522.0
     y: 514.0
+
+  stops:
+    - *Sto5
 
 - &Stree6 name: "Street6"
 
@@ -140,24 +162,53 @@ streets:
     x: 724.0
     y: 364.0
 
-- &Stree7 name: "Street7"
+  stops:
+    - *Sto6
+    - *Sto7
+
+- &Stree7a name: "Street7a"
 
   from:
-    x: 277.0
-    y: 543.0
-  to:
     x: 268.0
     y: 36.0
+  to:
+    x: 272.0
+    y: 383.0
 
-- &Stree8 name: "Street8"
+  stops:
+    - *Sto8
+    - *Sto9
 
+
+- &Stree7b name: "Street7b"
+  from:
+    x: 272.0
+    y: 383.0
+  to:
+    x: 277.0
+    y: 543.0
+
+- &Stree8a name: "Street8a"
   from:
     x: 11.0
     y: 377.0
+  to:
+    x: 63.0
+    y: 474.0
 
+  stops:
+    - *Sto10
+
+- &Stree8b name: "Street8b"
+  from:
+    x: 63.0
+    y: 474.0
   to:
     x: 147.0
     y: 619.0
+
+  stops:
+    - *Sto11
 
 - &Stree9 name: "Street9"
 
@@ -167,6 +218,9 @@ streets:
   to:
     x: 176.0
     y: 277.0
+
+  stops:
+    - *Sto12
 
 - &Stree10 name: "Street10"
 
@@ -181,21 +235,28 @@ streets:
 - &Stree11 name: "Street11"
 
   from:
-    x: -2.0
+    x: 2.0
     y: 6.0
 
   to:
     x: 102.0
-    y: 37.0
+    y: 36.0
+
+  stops:
+    - *Sto13
 
 - &Stree12 name: "Street12"
 
   from:
-    x: 574.0
-    y: 679.0
-  to:
     x: 747.0
     y: 687.0
+
+  to:
+    x: 574.0
+    y: 679.0
+
+  stops:
+    - *Sto14
 
 - &Stree13 name: "Street13"
 
@@ -215,6 +276,9 @@ streets:
     x: 575.0
     y: 296.0
 
+  stops:
+    - *Sto15
+
 - &Stree15 name: "Street15"
 
   from:
@@ -223,6 +287,9 @@ streets:
   to:
     x: 559.0
     y: 115.0
+
+  stops:
+    - *Sto16
 
 - &Stree16 name: "Street16"
 
@@ -241,21 +308,29 @@ streets:
     x: 63.0
     y: 474.0
 
+  stops:
+    - *Sto17
+
 - &Stree18 name: "Street18"
   from:
-    x: 701.0
-    y: 43.0
-  to:
     x: 775.0
     y: 132.0
 
+  to:
+    x: 701.0
+    y: 43.0
+
+  stops:
+    - *Sto18
+
 - &Stree19 name: "Street19"
   from:
-    x: 11.0
-    y: 377.0
-  to:
     x: 2.0
     y: 6.0
+  to:
+    x: 11.0
+    y: 377.0
+
 
 vehicles:
   - &modraLinka
@@ -265,38 +340,24 @@ vehicles:
     speed: 20
     route:
       route:
-        - x: 2.0
-          y: 6.0
-        - x: 19.48730889931126
-          y: 12.404870921910089
-        - x: 102.0
-          y: 36.0
-        - x: 176.0
-          y: 277.0
-        - x: 165.96011832448906
-          y: 283.9211295859225
-        - x: 11.0
-          y: 377.0
-        - x: 16.652736155882394
-          y: 387.0585452185554
-        - x: 63.0
-          y: 474.0
-        - x: 72.4036982166181
-          y: 469.90556680520456
-        - x: 272.0
-          y: 383.0
-        - x: 272.3369546642645
-          y: 280.3151127535665
-        - x: 271.23520165680674
-          y: 218.24969333344632
-        - x: 268.0
-          y: 36.0
-        - x: 102.0
-          y: 37.0
-        - x: 19.48730889931126
-          y: 12.404870921910089
-        - x: 2.0
-          y: 6.0
+        - *Stree11
+        - *Stree10
+        - *Stree9
+        - *Stree8a
+        - *Stree17
+        - *Stree7a
+        - *Stree0a
+        - *Stree11
+
+    streets:
+      - *Stree11
+      - *Stree10
+      - *Stree9
+      - *Stree8a
+      - *Stree17
+      - *Stree7a
+      - *Stree0a
+      - *Stree11
     stops:
       - *Sto13
       - *Sto12
@@ -305,6 +366,7 @@ vehicles:
       - *Sto9
       - *Sto8
       - *Sto13
+
     timelines:
       - &1st
         startTime: "06:00:00"
@@ -433,40 +495,16 @@ vehicles:
     speed: 20
     route:
       route:
-        - x: 2.0
-          y: 6.0
-        - x: 11.0
-          y: 377.0
-        - x: 16.652736155882394
-          y: 387.0585452185554
-        - x: 123.86335995655107
-          y: 577.8303905109217
-        - x: 147.0
-          y: 619.0
-        - x: 277.0
-          y: 543.0
-        - x: 272.3369546642645
-          y: 280.3151127535665
-        - x: 271.23520165680674
-          y: 218.24969333344632
-        - x: 268.0
-          y: 36.0
-        - x: 556.6377968726824
-          y: 41.31296256779429
-        - x: 589.7843553297787
-          y: 41.70031800886219
-        - x: 701.0
-          y: 43.0
-        - x: 710.084857806195
-          y: 169.79301546907044
-        - x: 724.0
-          y: 364.0
-        - x: 574.0
-          y: 679.0
-        - x: 681.2455505562323
-          y: 683.9593318176293
-        - x: 747.0
-          y: 687.0
+          - *Stree19
+          - *Stree8a
+          - *Stree8b
+          - *Stree4
+          - *Stree7b
+          - *Stree7a
+          - *Stree0b
+          - *Stree1
+          - *Stree2
+          - *Stree12
     stops:
       - *Sto10
       - *Sto11
@@ -476,6 +514,17 @@ vehicles:
       - *Sto1
       - *Sto2
       - *Sto14
+    streets:
+      - *Stree19
+      - *Stree8a
+      - *Stree8b
+      - *Stree4
+      - *Stree7b
+      - *Stree7a
+      - *Stree0b
+      - *Stree1
+      - *Stree2
+      - *Stree12
     timelines:
       - &1st
         startTime: "06:00:00"
@@ -595,48 +644,16 @@ vehicles:
     speed: 20
     route:
       route:
-        - x: 775.0
-          y: 132.0
-        - x: 729.2949147942974
-          y: 77.03037049584415
-        - x: 701.0
-          y: 43.0
-        - x: 710.084857806195
-          y: 169.79301546907044
-        - x: 724.0
-          y: 364.0
-        - x: 714.2715605485514
-          y: 371.2240887015707
-        - x: 691.5528399386062
-          y: 388.09442578816373
-        - x: 522.0
-          y: 514.0
-        - x: 390.2893171516581
-          y: 529.5902440922528
-        - x: 277.0
-          y: 543.0
-        - x: 402.0
-          y: 357.0
-        - x: 442.96451771871955
-          y: 342.5558636945555
-        - x: 575.0
-          y: 296.0
-        - x: 567.1796131188627
-          y: 207.5318734071339
-        - x: 559.0
-          y: 115.0
-        - x: 268.0
-          y: 36.0
-        - x: 556.6377968726824
-          y: 41.31296256779429
-        - x: 589.7843553297787
-          y: 41.70031800886219
-        - x: 701.0
-          y: 43.0
-        - x: 729.2949147942974
-          y: 77.03037049584415
-        - x: 775.0
-          y: 132.0
+        - *Stree18
+        - *Stree1
+        - *Stree6
+        - *Stree5
+        - *Stree13
+        - *Stree14
+        - *Stree15
+        - *Stree16
+        - *Stree0b
+        - *Stree18
     stops:
       - *Sto18
       - *Sto2
@@ -648,6 +665,17 @@ vehicles:
       - *Sto0
       - *Sto1
       - *Sto18
+    streets:
+      - *Stree18
+      - *Stree1
+      - *Stree6
+      - *Stree5
+      - *Stree13
+      - *Stree14
+      - *Stree15
+      - *Stree16
+      - *Stree0b
+      - *Stree18
     timelines:
       - &1st
         startTime: "06:00:00"
@@ -786,36 +814,13 @@ vehicles:
     speed: 20
     route:
       route:
-        - x: 747.0
-          y: 687.0
-        - x: 681.2455505562323
-          y: 683.9593318176293
-        - x: 574.0
-          y: 679.0
-        - x: 491.3094655279368
-          y: 667.3807211514666
-        - x: 348.6124843664294
-          y: 647.3296230959854
-        - x: 147.0
-          y: 619.0
-        - x: 277.0
-          y: 543.0
-        - x: 390.2893171516581
-          y: 529.5902440922528
-        - x: 522.0
-          y: 514.0
-        - x: 691.5528399386062
-          y: 388.09442578816373
-        - x: 714.2715605485514
-          y: 371.2240887015707
-        - x: 724.0
-          y: 364.0
-        - x: 574.0
-          y: 679.0
-        - x: 681.2455505562323
-          y: 683.9593318176293
-        - x: 747.0
-          y: 687.0
+          - *Stree12
+          - *Stree3
+          - *Stree4
+          - *Stree5
+          - *Stree6
+          - *Stree2
+          - *Stree12
     stops:
       - *Sto14
       - *Sto3
@@ -824,6 +829,14 @@ vehicles:
       - *Sto6
       - *Sto7
       - *Sto14
+    streets:
+      - *Stree12
+      - *Stree3
+      - *Stree4
+      - *Stree5
+      - *Stree6
+      - *Stree2
+      - *Stree12
     timelines:
       - &1st
         startTime: "06:00:00"
