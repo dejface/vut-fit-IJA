@@ -26,6 +26,8 @@ public class Main extends Application {
         BorderPane root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("MHD Map Simulator");
+        primaryStage.resizableProperty().setValue(false);
         primaryStage.show();
 
         MainController controller = loader.getController();
@@ -36,7 +38,7 @@ public class Main extends Application {
         ObjectMapper mapper = new ObjectMapper(factory);
 
 
-        Map mapa = mapper.readValue(new File("source.yml"), Map.class );
+        Map mapa = mapper.readValue(new File("sources.yml"), Map.class );
 
         contents.addAll(mapa.getStreets());
         contents.addAll(mapa.getStops());

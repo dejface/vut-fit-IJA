@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
-
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +28,9 @@ public class Vehicle implements Draw, Updater {
     private double fourthLine;
     private List<Timeline> timelines;
     private List<Stop> stops;
+    private List<Street> streets;
+    @JsonIgnore
+    private Street currStreet;
     @JsonIgnore
     private int onStopCount = 10;
     private int line;
@@ -99,8 +101,8 @@ public class Vehicle implements Draw, Updater {
      */
     private void guiChange(int line){
        for (int i = 1; i < route.getRoute().size(); i++){
-            gui.add(new Line(route.getRoute().get(i-1).getX(), route.getRoute().get(i-1).getY(),
-                    route.getRoute().get(i).getX(), route.getRoute().get(i).getY()));
+            gui.add(new Line(route.getRoute().get(i).getFrom().getX(), route.getRoute().get(i).getFrom().getY(),
+                    route.getRoute().get(i).getTo().getX(), route.getRoute().get(i).getTo().getY()));
             if (line == 1) gui.get(gui.size() - 1).setStroke(Color.DEEPSKYBLUE);
             else if (line == 2) gui.get(gui.size() - 1).setStroke(Color.FUCHSIA);
             else if (line == 3) gui.get(gui.size() - 1).setStroke(Color.YELLOWGREEN);
@@ -134,16 +136,35 @@ public class Vehicle implements Draw, Updater {
             gui.add(polygon);
             gui.get(gui.size() - 1).setVisible(false);
 
-            for(int i = 0; i < this.getStops().size()-1; i++){
+            for(int i = 0; i < this.getStops().size(); i++){
                 double tempDist = 0;
-                for(int l = 0; l < this.route.getRoute().size()-1; l++){
-                    if(this.route.getRoute().get(l).getX() == this.getStops().get(i).getCoordinates().getX() &
-                            this.route.getRoute().get(l).getY() == this.getStops().get(i).getCoordinates().getY()){
+
+                for(int l = 0; l < this.route.getRoute().size(); l++){
+                    boolean stopFound = false;
+                    System.out.println(tempDist);
+                    if(this.route.getRoute().get(l).getStops() != null) {
+                        for (int s = 0; s < this.route.getRoute().get(l).getStops().size(); s++) {
+                            if (this.getStops().get(i).equals(this.route.getRoute().get(l).getStops().get(s))) {
+                                if(l > 0) {
+                                    if(this.route.getRoute().get(l).getFrom().equals(this.route.getRoute().get(l-1).getFrom())
+                                            || this.route.getRoute().get(l).getFrom().equals(this.route.getRoute().get(l-1).getTo())){
+                                        tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getFrom());
+                                    }
+                                    else tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getTo());
+                                }
+                                else tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getFrom());
+
+                                stopFound = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(stopFound){
+                        stopFound = false;
                         break;
                     }
-                    tempDist += Math.abs( Math.sqrt(Math.pow(this.route.getRoute().get(l).getX() -
-                            this.route.getRoute().get(l+1).getX(), 2) +
-                            Math.pow(this.route.getRoute().get(l).getY() - this.route.getRoute().get(l+1).getY(), 2)));
+                    tempDist += getDistance(this.route.getRoute().get(l).getFrom(),this.route.getRoute().get(l).getTo());
                 }
 
                 Ellipse ellipse = new Ellipse((800 * (tempDist / this.route.getRouteLength()) + 10),800.0,8.0,8.0);
@@ -185,14 +206,33 @@ public class Vehicle implements Draw, Updater {
 
             for(int i = 0; i < this.getStops().size()-1; i++){
                 double tempDist = 0;
-                for(int l = 0; l < this.route.getRoute().size()-1; l++){
-                    if(this.route.getRoute().get(l).getX() == this.getStops().get(i).getCoordinates().getX() &
-                            this.route.getRoute().get(l).getY() == this.getStops().get(i).getCoordinates().getY()){
+
+                for(int l = 0; l < this.route.getRoute().size(); l++){
+                    boolean stopFound = false;
+                    System.out.println(tempDist);
+                    if(this.route.getRoute().get(l).getStops() != null) {
+                        for (int s = 0; s < this.route.getRoute().get(l).getStops().size(); s++) {
+                            if (this.getStops().get(i).equals(this.route.getRoute().get(l).getStops().get(s))) {
+                                if(l > 0) {
+                                    if(this.route.getRoute().get(l).getFrom().equals(this.route.getRoute().get(l-1).getFrom())
+                                            || this.route.getRoute().get(l).getFrom().equals(this.route.getRoute().get(l-1).getTo())){
+                                        tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getFrom());
+                                    }
+                                    else tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getTo());
+                                }
+                                else tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getFrom());
+
+                                stopFound = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(stopFound){
+                        stopFound = false;
                         break;
                     }
-                    tempDist += Math.abs( Math.sqrt(Math.pow(this.route.getRoute().get(l).getX() -
-                            this.route.getRoute().get(l+1).getX(), 2) +
-                            Math.pow(this.route.getRoute().get(l).getY() - this.route.getRoute().get(l+1).getY(), 2)));
+                    tempDist += getDistance(this.route.getRoute().get(l).getFrom(),this.route.getRoute().get(l).getTo());
                 }
 
                 Ellipse ellipse = new Ellipse((800 * (tempDist / this.route.getRouteLength()) + 10),850.0,8.0,8.0);
@@ -234,14 +274,33 @@ public class Vehicle implements Draw, Updater {
 
             for(int i = 0; i < this.getStops().size()-1; i++){
                 double tempDist = 0;
-                for(int l = 0; l < this.route.getRoute().size()-1; l++){
-                    if(this.route.getRoute().get(l).getX() == this.getStops().get(i).getCoordinates().getX() &
-                            this.route.getRoute().get(l).getY() == this.getStops().get(i).getCoordinates().getY()){
+
+                for(int l = 0; l < this.route.getRoute().size(); l++){
+                    boolean stopFound = false;
+                    System.out.println(tempDist);
+                    if(this.route.getRoute().get(l).getStops() != null) {
+                        for (int s = 0; s < this.route.getRoute().get(l).getStops().size(); s++) {
+                            if (this.getStops().get(i).equals(this.route.getRoute().get(l).getStops().get(s))) {
+                                if(l > 0) {
+                                    if(this.route.getRoute().get(l).getFrom().equals(this.route.getRoute().get(l-1).getFrom())
+                                            || this.route.getRoute().get(l).getFrom().equals(this.route.getRoute().get(l-1).getTo())){
+                                        tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getFrom());
+                                    }
+                                    else tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getTo());
+                                }
+                                else tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getFrom());
+
+                                stopFound = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(stopFound){
+                        stopFound = false;
                         break;
                     }
-                    tempDist += Math.abs( Math.sqrt(Math.pow(this.route.getRoute().get(l).getX() -
-                            this.route.getRoute().get(l+1).getX(), 2) +
-                            Math.pow(this.route.getRoute().get(l).getY() - this.route.getRoute().get(l+1).getY(), 2)));
+                    tempDist += getDistance(this.route.getRoute().get(l).getFrom(),this.route.getRoute().get(l).getTo());
                 }
 
                 Ellipse ellipse = new Ellipse((800 * (tempDist / this.route.getRouteLength()) + 10),900.0,8.0,8.0);
@@ -284,14 +343,33 @@ public class Vehicle implements Draw, Updater {
 
             for(int i = 0; i < this.getStops().size()-1; i++){
                 double tempDist = 0;
-                for(int l = 0; l < this.route.getRoute().size()-1; l++){
-                    if(this.route.getRoute().get(l).getX() == this.getStops().get(i).getCoordinates().getX() &
-                            this.route.getRoute().get(l).getY() == this.getStops().get(i).getCoordinates().getY()){
+
+                for(int l = 0; l < this.route.getRoute().size(); l++){
+                    boolean stopFound = false;
+                    System.out.println(tempDist);
+                    if(this.route.getRoute().get(l).getStops() != null) {
+                        for (int s = 0; s < this.route.getRoute().get(l).getStops().size(); s++) {
+                            if (this.getStops().get(i).equals(this.route.getRoute().get(l).getStops().get(s))) {
+                                if(l > 0) {
+                                    if(this.route.getRoute().get(l).getFrom().equals(this.route.getRoute().get(l-1).getFrom())
+                                            || this.route.getRoute().get(l).getFrom().equals(this.route.getRoute().get(l-1).getTo())){
+                                        tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getFrom());
+                                    }
+                                    else tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getTo());
+                                }
+                                else tempDist += getDistance(this.route.getRoute().get(l).getStops().get(s).getCoordinates(), this.route.getRoute().get(l).getFrom());
+
+                                stopFound = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(stopFound){
+                        stopFound = false;
                         break;
                     }
-                    tempDist += Math.abs( Math.sqrt(Math.pow(this.route.getRoute().get(l).getX() -
-                            this.route.getRoute().get(l+1).getX(), 2) +
-                            Math.pow(this.route.getRoute().get(l).getY() - this.route.getRoute().get(l+1).getY(), 2)));
+                    tempDist += getDistance(this.route.getRoute().get(l).getFrom(),this.route.getRoute().get(l).getTo());
                 }
 
                 Ellipse ellipse = new Ellipse((800 * (tempDist / this.route.getRouteLength()) + 10),950.0,8.0,8.0);
@@ -314,18 +392,7 @@ public class Vehicle implements Draw, Updater {
 
             count = 0;
         }
-        gui.get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                for (Shape shape : gui){
-                    if (shape instanceof Line | shape instanceof Polygon | shape instanceof Text | shape instanceof Ellipse){
-                        if (!shape.isVisible()){
-                            shape.setVisible(true);
-                        } else shape.setVisible(false);
-                    }
-                }
-            }
-        });
+
     }
 
     /**
@@ -390,7 +457,8 @@ public class Vehicle implements Draw, Updater {
             else delay += 9;
             if ((intervalLeft <= currentTimeChange) && (currentTimeChange <= intervalRight)) {
                 int change = currentTimeChange - delay - start;
-                distance = speed / 10;
+                findAndSetCurrStreet();
+                distance = speed / currStreet.getTraffic();
                 Coordinate coordinate = null;
 
                 if (this.line == 1) coordinate = route.distanceOfCoords(firstLine = change * distance);
@@ -424,7 +492,8 @@ public class Vehicle implements Draw, Updater {
                     gui.get(0).setVisible(false);
                     return;
                 }
-                distance = speed / 10;
+                findAndSetCurrStreet();
+                distance = speed / currStreet.getTraffic();
                 Coordinate coordinate = null;
 
                 if (this.line == 1) coordinate = route.distanceOfCoords(firstLine = change * distance);
@@ -535,7 +604,8 @@ public class Vehicle implements Draw, Updater {
                if (getOnStopCount() == 10 | getOnStopCount() == 0) {
                    setOnStopCount(10);
                    if (!isPorted) {
-                       distance += speed / 10;
+                       findAndSetCurrStreet();
+                       distance += speed / currStreet.traffic;
                        firstLine = 0;
                        secondLine = 0;
                        thirdLine = 0;
@@ -579,6 +649,42 @@ public class Vehicle implements Draw, Updater {
     }
 
     /**
+     * @return distance betweeen 2 points
+     */
+    @JsonIgnore
+    private double getDistance(Coordinate x, Coordinate y){
+        return Math.sqrt(Math.pow(x.getX() - y.getX(), 2) + Math.pow(x.getY() - y.getY(), 2));
+    }
+
+    /**
+     * Checks if vehicle is located on current street
+     * @return - true if vehicle is on currStreet
+     */
+    @JsonIgnore
+    private boolean isOnCurrStreet(){
+        return Math.abs(getDistance(currStreet.getFrom(),coords) + getDistance(coords,currStreet.getTo())
+                - getDistance(currStreet.getFrom(),currStreet.getTo())) <= 3.0;
+
+    }
+
+    /**
+     * Sets current street that the vehicle is located on
+     */
+    @JsonIgnore
+    public void findAndSetCurrStreet() {
+        if(currStreet == null) currStreet = streets.get(0);
+        if(!isOnCurrStreet()){
+            for(Street s : streets){
+                currStreet = s;
+                if(isOnCurrStreet()){
+                    System.out.println("Line " + line +" Current Street is: " + currStreet.getName());
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
      * @return - coordinates of object
      */
     public Coordinate getCoords() {
@@ -611,6 +717,13 @@ public class Vehicle implements Draw, Updater {
      */
     public List<Timeline> getTimelines() {
         return timelines;
+    }
+
+    /**
+     * @return - streets of object
+     */
+    public List<Street> getStreets() {
+        return streets;
     }
 
     /**

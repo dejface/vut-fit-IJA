@@ -1,12 +1,19 @@
 package ija.vut.fit.project;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
@@ -26,8 +33,6 @@ public class MainController {
     private List<Updater> updates = new ArrayList<>();
     private Timer timer;
     private LocalTime time = LocalTime.parse("06:00:00");
-    //private List<Draw> vehicles = new ArrayList<>();
-    //private List<Draw> streets = new ArrayList<>();
     static int count = 0;
     private boolean isRestart = false;
 
@@ -99,7 +104,60 @@ public class MainController {
      */
     public void setContents(List<Draw> contents) {
         for (Draw draw : contents) {
+
             paneContent.getChildren().addAll(draw.getGUI());
+            if (draw instanceof Street) {
+                for (Shape shape: draw.getGUI()) {
+                    draw.getGUI().get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            if(event.getButton().equals(MouseButton.PRIMARY)) {
+                                for (Shape shape : draw.getGUI()) {
+                                    if (shape instanceof Line) {
+                                        if (((Street) draw).traffic == 100) {
+                                            shape.setStroke(Color.BLACK);
+                                            ((Street) draw).traffic = 10;
+                                        } else {
+                                            ((Street) draw).traffic += 10;
+                                            shape.setStroke(Color.rgb(255, 255 - (((Street) draw).traffic / 10 * 25), 0));
+                                        }
+                                        System.out.println("Traffic level on street " + ((Street) draw).name + " is " + ((Street) draw).traffic);
+                                    }
+                                    if (shape instanceof Text) {
+                                        if (((Street) draw).traffic == 10) ((Text) shape).setText(((Street) draw).name);
+                                        else {
+                                            ((Text) shape).setTextAlignment(TextAlignment.CENTER);
+                                            ((Text) shape).setText(((Street) draw).name + "\nTraffic lvl: " + ((Street) draw).traffic / 10);
+                                        }
+                                    }
+                                }
+                            }
+                            else if(event.getButton().equals(MouseButton.SECONDARY)){
+                                System.out.println("Prave tlacitko");
+                            }
+                        }
+                    });
+                }
+                /*Shape s = draw.getGUI().get(0);
+                s.setFill(Color.PINK);
+                paneContent.getChildren().add(s);*/
+            }
+            if (draw instanceof Vehicle){
+                draw.getGUI().get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        for (Shape shape : draw.getGUI()){
+                            if (shape instanceof Line | shape instanceof Polygon | shape instanceof Text | shape instanceof Ellipse){
+                                if (!shape.isVisible()){
+                                    shape.setVisible(true);
+                                } else shape.setVisible(false);
+                            }
+                        }
+                    }
+                });
+            }
+
+
             if (draw instanceof Updater) {
                 updates.add((Updater) draw);
             }
