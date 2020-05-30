@@ -20,6 +20,7 @@ public class Stop implements Draw{
     private Coordinate coordinates;
     @JsonIgnore
     private Street onStreet;
+    private Route route;
 
     private Stop(){}
 
@@ -64,5 +65,10 @@ public class Stop implements Draw{
         return Arrays.asList(
                 new Circle(coordinates.getX(), coordinates.getY(), 8, Color.LIGHTGRAY),
                 new Text(coordinates.getX()-25, coordinates.getY()-8, id));
+    }
+
+    @Override
+    public Route getRoute() {
+        return route;
     }
 }

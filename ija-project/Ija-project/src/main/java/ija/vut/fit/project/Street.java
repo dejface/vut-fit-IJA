@@ -5,15 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +25,10 @@ public class Street implements Draw {
     private List<Shape> gui;
     @JsonIgnore
     public int traffic = 10;
+    @JsonIgnore
+    public boolean closed = false;
+    public boolean removed = false;
+    private Route route;
 
     public Street() {
     }
@@ -54,6 +52,11 @@ public class Street implements Draw {
     @Override
     public List<Shape> getGUI() {
         return gui;
+    }
+
+    @Override
+    public Route getRoute() {
+        return route;
     }
 
     @JsonIgnore

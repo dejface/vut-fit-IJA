@@ -1,24 +1,31 @@
 package ija.vut.fit.project;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * MainController class is connected to "layout.fxml" and communicates with GUI
@@ -29,15 +36,35 @@ public class MainController {
     @FXML private TextField speedScale;
     @FXML private TextField timerField;
     @FXML private TextField timeChange;
+    @FXML private ChoiceBox choiceBox;
 
     private List<Updater> updates = new ArrayList<>();
     private Timer timer;
     private LocalTime time = LocalTime.parse("06:00:00");
     static int count = 0;
     private boolean isRestart = false;
+    private List<Draw> vehicles = new ArrayList<>();
+    private List<Draw> contents = new ArrayList<>();
+    private List<Street> newList1 = new ArrayList<>();
+    private List<Street> newList2 = new ArrayList<>();
+    private List<Street> newList3 = new ArrayList<>();
+    private List<Street> newList4 = new ArrayList<>();
+    private static boolean newRoute = false;
+    private static boolean newRoute1 = false;
+    private static boolean newRoute2 = false;
+    private static boolean newRoute3 = false;
+    private static boolean newRoute4 = false;
+    private static int countOfDetours = 0;
 
     public MainController() {
 
+    }
+
+    ObservableList<String> box = FXCollections.observableArrayList("Line 1 (BLUE)", "Line 2 (PURPLE)", "Line 3 (YELLOW)", "Line 4 (RED)");
+    @FXML
+    private void initialize(){
+        choiceBox.setItems(box);
+        choiceBox.setValue("Line 1 (BLUE)");
     }
 
     @FXML
@@ -103,8 +130,8 @@ public class MainController {
      * @param contents - list of streets, stops, vehicles
      */
     public void setContents(List<Draw> contents) {
+        this.contents = contents;
         for (Draw draw : contents) {
-
             paneContent.getChildren().addAll(draw.getGUI());
             if (draw instanceof Street) {
                 for (Shape shape: draw.getGUI()) {
@@ -114,7 +141,32 @@ public class MainController {
                             if(event.getButton().equals(MouseButton.PRIMARY)) {
                                 for (Shape shape : draw.getGUI()) {
                                     if (shape instanceof Line) {
-                                        if (((Street) draw).traffic == 100) {
+                                        if (countOfDetours == 0){
+                                            newRoute = false;
+                                        }
+                                        if (newRoute){
+                                            if (newRoute1) {
+                                                if (!newList1.contains(draw)) {
+                                                    newList1.add((Street) draw);
+                                                    //System.out.println(lol);
+                                                }
+                                            } else if (newRoute2) {
+                                                if (!newList2.contains(draw)) {
+                                                    newList2.add((Street) draw);
+                                                    System.out.println(newList2);
+                                                }
+                                            } else if (newRoute3) {
+                                                if (!newList3.contains(draw)) {
+                                                    newList3.add((Street) draw);
+                                                    //System.out.println(newList2);
+                                                }
+                                            } else if (newRoute4) {
+                                                if (!newList4.contains(draw)) {
+                                                    newList4.add((Street) draw);
+                                                    //System.out.println(newList2);
+                                                }
+                                            }
+                                        } else if (((Street) draw).traffic == 100) {
                                             shape.setStroke(Color.BLACK);
                                             ((Street) draw).traffic = 10;
                                         } else {
@@ -134,6 +186,22 @@ public class MainController {
                             }
                             else if(event.getButton().equals(MouseButton.SECONDARY)){
                                 System.out.println("Prave tlacitko");
+                                for (Shape shape : draw.getGUI()) {
+                                    if (shape instanceof Line) {
+                                        if (!((Street) draw).closed) {
+                                            shape.setStroke(Color.RED);
+                                            ((Street) draw).closed = true;
+                                            newRoute = true;
+                                            getVehicles();
+                                            removeStreetFromRoute((Street) draw);
+
+                                        } else if (((Street) draw).closed) {
+                                            shape.setStroke(Color.BLACK);
+                                            ((Street) draw).closed = false;
+                                            newRoute = false;
+                                        }
+                                    }
+                                }
                             }
                         }
                     });
@@ -164,15 +232,146 @@ public class MainController {
         }
      //   this.getVehicles();
     }
-/*
-    public void getVehicles(){
+
+   public void getVehicles(){
+       if (vehicles.size() > 0) {
+           vehicles.subList(0, vehicles.size()).clear();
+       }
         for (Draw draw : this.contents){
-            if (draw instanceof Vehicle) this.vehicles.add(draw);
-            else if (draw instanceof Street) this.streets.add(draw);
+            if (draw instanceof Vehicle) {
+                    this.vehicles.add(draw);
+            }
         }
     }
-*/
 
+   public void removeStreetFromRoute(Street s){
+        if (updates.size() > 0) {
+            updates.subList(0, updates.size()).clear();
+        }
+       for (Draw draw : this.vehicles) {
+           if (draw instanceof Updater) updates.add((Updater) draw);
+       }
+       for (int i = 0; i < updates.size(); i++) {
+           for (int j = 0; j < updates.get(i).getRoute().getRoute().size(); j++) {
+               if (s.equals(updates.get(i).getRoute().getRoute().get(j))) {
+                   updates.get(i).getRoute().getRoute().remove(j);
+                   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                   alert.setTitle("Information Dialog");
+                   alert.setHeaderText("WARNING: You have just blocked a street!");
+                   //alert.setContentText("Please define a new route for Line number " + i);
+                   if (i == 0) {
+                       newRoute1 = true;
+                       alert.setContentText("Please define a new route for Line number " + (i+1) + " (BLUE)");
+                       countOfDetours++;
+                   } else if (i == 1) {
+                       newRoute2 = true;
+                       alert.setContentText("Please define a new route for Line number " + (i+1) + " (PURPLE)");
+                       countOfDetours++;
+                   } else if (i == 2) {
+                       alert.setContentText("Please define a new route for Line number " + (i+1) + " (YELLOW)");
+                       newRoute3 = true;
+                       countOfDetours++;
+                   } else if (i == 3) {
+                       alert.setContentText("Please define a new route for Line number " + (i+1) + " (RED)");
+                       newRoute4 = true;
+                       countOfDetours++;
+                   }
+                   alert.showAndWait();
+                   break;
+               }
+           }
+       }
+    }
+
+  // int a = 0;
+    /*public void setNewRoute(int vehicle){
+        a = vehicle;
+       //List<Street> lol = new ArrayList<>();
+        for (Draw draw : contents) {
+            draw.getGUI().get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (event.getButton().equals(MouseButton.PRIMARY)) {
+                        if (draw instanceof Street) {
+                            if (!newList.contains(draw)) {
+                                newList.add((Street) draw);
+                                //System.out.println(lol);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }*/
+
+    public void confirm(){
+        String line = (String) choiceBox.getValue();
+        System.out.println(line);
+        switch (line) {
+            case "Line 1 (BLUE)":
+                updates.get(0).getRoute().getRoute().clear();
+                for (Street street : newList1) updates.get(0).getRoute().getRoute().add(street);
+                updates.get(0).getStops().clear();
+                for (int i = 0; i < updates.get(0).getRoute().getRoute().size(); i++) {
+                    List<Stop> stops = updates.get(0).getRoute().getRoute().get(i).getStops();
+                    if (stops == null) continue;
+                    updates.get(0).getStops().addAll(stops);
+                }
+                newRoute1 = false;
+                countOfDetours--;
+                break;
+            case "Line 2 (PURPLE)":
+                updates.get(1).getRoute().getRoute().clear();
+                for (Street street : newList2) updates.get(1).getRoute().getRoute().add(street);
+                updates.get(1).getStops().clear();
+                for (int i = 0; i < updates.get(1).getRoute().getRoute().size(); i++) {
+                    List<Stop> stops = updates.get(1).getRoute().getRoute().get(i).getStops();
+                    if (stops == null) continue;
+                    updates.get(1).getStops().addAll(stops);
+                }
+                newRoute2 = false;
+                countOfDetours--;
+                break;
+            case "Line 3 (YELLOW)":
+                updates.get(2).getRoute().getRoute().clear();
+                for (Street street : newList3) updates.get(2).getRoute().getRoute().add(street);
+                updates.get(2).getStops().clear();
+                for (int i = 0; i < updates.get(2).getRoute().getRoute().size(); i++) {
+                    List<Stop> stops = updates.get(2).getRoute().getRoute().get(i).getStops();
+                    if (stops == null) continue;
+                    updates.get(2).getStops().addAll(stops);
+                }
+                newRoute3 = false;
+                countOfDetours--;
+                break;
+            case "Line 4 (RED)":
+                updates.get(3).getRoute().getRoute().clear();
+                for (Street street : newList4) updates.get(3).getRoute().getRoute().add(street);
+                updates.get(3).getStops().clear();
+                for (int i = 0; i < updates.get(3).getRoute().getRoute().size(); i++) {
+                    List<Stop> stops = updates.get(3).getRoute().getRoute().get(i).getStops();
+                    if (stops == null) continue;
+                    updates.get(3).getStops().addAll(stops);
+                }
+                newRoute4 = false;
+                countOfDetours--;
+                break;
+        }
+    }
+
+    public void onReset(){
+        updates.clear();
+        for (Draw draw : contents){
+            if (draw instanceof Updater) {
+                updates.add((Updater) draw);
+            }
+            if (draw instanceof Street)
+                for (Shape shape : draw.getGUI()){
+                    if (shape instanceof Line)
+                        shape.setStroke(Color.BLACK);
+                }
+        }
+    }
     /**
      * Starts route and timer of simulation. Route speed is based on scale parameter.
      * @param scale - speed of the simulation
@@ -182,22 +381,21 @@ public class MainController {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                time = time.plusSeconds(1);
-                for (Updater updater : updates){
-                    updater.update(time, isRestart);
-                }
-                if (isRestart && (count == 0)){
-                    count++;
-                    isRestart = false;
-                }
-                Platform.runLater(()-> {
+                Platform.runLater(() -> {
+                    time = time.plusSeconds(1);
+                    for (Updater updater : updates){
+                        updater.update(time, isRestart);
+                    }
+                    if (isRestart && (count == 0)){
+                        count++;
+                        isRestart = false;
+                    }
                     try {
                         timerField.setText(time.toString());
                     } catch (Exception e){
 
                     }
                 });
-
             }
         }, 0, (long) (1000 / scale));
     }

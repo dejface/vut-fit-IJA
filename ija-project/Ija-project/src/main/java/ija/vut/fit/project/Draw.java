@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface Draw {
     List<Shape> getGUI();
+    Route getRoute();
 }

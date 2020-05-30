@@ -3,11 +3,10 @@ package ija.vut.fit.project;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.util.StdConverter;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -511,7 +510,15 @@ public class Vehicle implements Draw, Updater {
             }
         }
     }
-
+    private void editRoute() {
+        for (int i = 0; i < route.getRouteLength(); i++){
+            if (currStreet == route.getRoute().get(i)){
+                route.getRoute().remove(i);
+                break;
+            }
+        }
+    }
+    static int L1 = 0, L2 = 0, L3 = 0, L4 = 0;
     /**
      * Updates and calculates new position of vehicle
      * @param time - localtime in simulation
@@ -523,6 +530,11 @@ public class Vehicle implements Draw, Updater {
         else if (this.line == 2) timelineiterator = timelineiterator2;
         else if (this.line == 3) timelineiterator = timelineiterator3;
         else if (this.line == 4) timelineiterator = timelineiterator4;
+        /*findAndSetCurrStreet();
+        if (currStreet.closed) {
+            editRoute();
+        }*/
+        //findIfClosedStreet();
         if (timelineiterator < timelines.size()) {
             if(this.timelines.get(timelineiterator).getStartTime().compareTo(time.toString()) < 0) {
                 if (!gui.get(0).isVisible()) gui.get(0).setVisible(true);
@@ -533,28 +545,35 @@ public class Vehicle implements Draw, Updater {
                            delay = 0;
                            handlePort(delay, time);
                        }
-                       if (timelines.get(timelineiterator).getTimeList().get(stopCountLine1).equals(time.toString())) {
-                           for (Stop s : stops) {
-                               if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 3 &
-                                       Math.abs(coords.getY() - s.getCoordinates().getY()) <= 3) {
-                                   setOnStopCount(onStopCount - 1);
-                                   break;
-                               }
-                           }
-                           if ((stopCountLine1 != timelines.get(timelineiterator).getTimeList().size() - 1)) {
-                               stopCountLine1++;
-                           }
-                       }
+                       //if (timelines.get(timelineiterator).getTimeList().get(stopCountLine1).equals(time.toString())) {
+                        if (onStopCount == 10){
+                            for (Stop s : stops) {
+                                if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 2.5 &
+                                        Math.abs(coords.getY() - s.getCoordinates().getY()) <= 2.5) {
+                                    L1++;
+                                    if (L1 == 2) break;
+                                    else if (L1 >= 3) {L1 = 0; break;}
+                                    setOnStopCount(onStopCount - 1);
+                                    break;
+                                }
+                            }
+                            if ((stopCountLine1 != timelines.get(timelineiterator).getTimeList().size() - 1)) {
+                                stopCountLine1++;
+                            }
+                        }
                    } else if (this.line == 2) {
                        if (isPorted) {
                            secondLine = 0;
                            delay = 0;
                            handlePort(delay, time);
                        }
-                       if (timelines.get(timelineiterator).getTimeList().get(stopCountLine2).equals(time.toString())) {
+                       //if (timelines.get(timelineiterator).getTimeList().get(stopCountLine2).equals(time.toString())) {
                            for (Stop s : stops) {
-                               if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 3 &
-                                       Math.abs(coords.getY() - s.getCoordinates().getY()) <= 3) {
+                               if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 2 &
+                                       Math.abs(coords.getY() - s.getCoordinates().getY()) <= 2) {
+                                   L2++;
+                                   if (L2 == 2) break;
+                                   else if (L2 >= 3) {L2 = 0; break;}
                                    setOnStopCount(onStopCount - 1);
                                    break;
                                }
@@ -562,17 +581,20 @@ public class Vehicle implements Draw, Updater {
                            if ((stopCountLine2 != timelines.get(timelineiterator).getTimeList().size() - 1)) {
                                stopCountLine2++;
                            }
-                       }
+                       //}
                    } else if (this.line == 3) {
                        if (isPorted) {
                            thirdLine = 0;
                            delay = 0;
                            handlePort(delay, time);
                        }
-                       if (timelines.get(timelineiterator).getTimeList().get(stopCountLine3).equals(time.toString())) {
+                       //if (timelines.get(timelineiterator).getTimeList().get(stopCountLine3).equals(time.toString())) {
                            for (Stop s : stops) {
-                               if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 3 &
-                                       Math.abs(coords.getY() - s.getCoordinates().getY()) <= 3) {
+                               if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 2 &
+                                       Math.abs(coords.getY() - s.getCoordinates().getY()) <= 2) {
+                                   L3++;
+                                   if (L3 == 2) break;
+                                   else if (L3 >= 3) {L3 = 0; break;}
                                    setOnStopCount(onStopCount - 1);
                                    break;
                                }
@@ -580,17 +602,20 @@ public class Vehicle implements Draw, Updater {
                            if ((stopCountLine3 != timelines.get(timelineiterator).getTimeList().size() - 1)) {
                                stopCountLine3++;
                            }
-                       }
+                       //}
                    } else if (this.line == 4) {
                        if (isPorted) {
                            fourthLine = 0;
                            delay = 0;
                            handlePort(delay, time);
                        }
-                       if (timelines.get(timelineiterator).getTimeList().get(stopCountLine4).equals(time.toString())) {
+                       //if (timelines.get(timelineiterator).getTimeList().get(stopCountLine4).equals(time.toString())) {
                            for (Stop s : stops) {
-                               if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 3 &
-                                       Math.abs(coords.getY() - s.getCoordinates().getY()) <= 3) {
+                               if (Math.abs(coords.getX() - s.getCoordinates().getX()) <= 2 &
+                                       Math.abs(coords.getY() - s.getCoordinates().getY()) <= 2) {
+                                   L4++;
+                                   if (L4 == 2) break;
+                                   else if (L4 >= 3) {L4 = 0; break;}
                                    setOnStopCount(onStopCount - 1);
                                    break;
                                }
@@ -598,7 +623,7 @@ public class Vehicle implements Draw, Updater {
                            if ((stopCountLine4 != timelines.get(timelineiterator).getTimeList().size() - 1)) {
                                stopCountLine4++;
                            }
-                       }
+                       //}
                    }
 
                if (getOnStopCount() == 10 | getOnStopCount() == 0) {
@@ -701,6 +726,7 @@ public class Vehicle implements Draw, Updater {
     /**
      * @return - root of object
      */
+    @Override
     public Route getRoute() {
         return route;
     }

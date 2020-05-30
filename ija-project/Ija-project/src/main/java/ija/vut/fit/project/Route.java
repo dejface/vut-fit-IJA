@@ -2,7 +2,6 @@ package ija.vut.fit.project;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.awt.*;
 import java.util.List;
 
 /**
