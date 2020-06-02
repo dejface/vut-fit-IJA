@@ -26,7 +26,7 @@ public class Vehicle implements Draw, Updater {
     private double thirdLine;
     private double fourthLine;
     private List<Timeline> timelines;
-    private List<Stop> stops;
+    public List<Stop> stops;
     private List<Street> streets;
     @JsonIgnore
     private Street currStreet;
@@ -39,7 +39,7 @@ public class Vehicle implements Draw, Updater {
     private short timelineiterator2 = 0;
     private short timelineiterator3 = 0;
     private short timelineiterator4 = 0;
-    private Route route;
+    public Route route;
     @JsonIgnore
     private List<Shape> gui;
     static int stopCountLine1 = 0;
@@ -140,7 +140,6 @@ public class Vehicle implements Draw, Updater {
 
                 for(int l = 0; l < this.route.getRoute().size(); l++){
                     boolean stopFound = false;
-                    System.out.println(tempDist);
                     if(this.route.getRoute().get(l).getStops() != null) {
                         for (int s = 0; s < this.route.getRoute().get(l).getStops().size(); s++) {
                             if (this.getStops().get(i).equals(this.route.getRoute().get(l).getStops().get(s))) {
@@ -171,15 +170,11 @@ public class Vehicle implements Draw, Updater {
                 gui.add(ellipse);
                 gui.get(gui.size() - 1).setVisible(false);
                 if(i%2 == 0) {
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 780, this.getTimelines().get(0).getTimeList().get(i)));
-                    gui.get(gui.size() - 1).setVisible(false);
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 765, this.getStops().get(i).getId()));
+                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 765, this.getStops().get(i).getId()+"\n"+this.getTimelines().get(0).getTimeList().get(i)));
                     gui.get(gui.size() - 1).setVisible(false);
                 }
                 else {
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 820, this.getTimelines().get(0).getTimeList().get(i)));
-                    gui.get(gui.size() - 1).setVisible(false);
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 835, this.getStops().get(i).getId()));
+                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 835, this.getStops().get(i).getId()+"\n"+this.getTimelines().get(0).getTimeList().get(i)));
                     gui.get(gui.size() - 1).setVisible(false);
                 }
             }
@@ -208,7 +203,6 @@ public class Vehicle implements Draw, Updater {
 
                 for(int l = 0; l < this.route.getRoute().size(); l++){
                     boolean stopFound = false;
-                    System.out.println(tempDist);
                     if(this.route.getRoute().get(l).getStops() != null) {
                         for (int s = 0; s < this.route.getRoute().get(l).getStops().size(); s++) {
                             if (this.getStops().get(i).equals(this.route.getRoute().get(l).getStops().get(s))) {
@@ -239,15 +233,11 @@ public class Vehicle implements Draw, Updater {
                 gui.add(ellipse);
                 gui.get(gui.size() - 1).setVisible(false);
                 if(i%2 == 0) {
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 830, this.getTimelines().get(0).getTimeList().get(i)));
-                    gui.get(gui.size() - 1).setVisible(false);
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 815, this.getStops().get(i).getId()));
+                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 815, this.getStops().get(i).getId()+"\n"+this.getTimelines().get(0).getTimeList().get(i)));
                     gui.get(gui.size() - 1).setVisible(false);
                 }
                 else {
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 870, this.getTimelines().get(0).getTimeList().get(i)));
-                    gui.get(gui.size() - 1).setVisible(false);
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 885, this.getStops().get(i).getId()));
+                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 885, this.getStops().get(i).getId()+"\n"+this.getTimelines().get(0).getTimeList().get(i)));
                     gui.get(gui.size() - 1).setVisible(false);
                 }
             }
@@ -276,7 +266,6 @@ public class Vehicle implements Draw, Updater {
 
                 for(int l = 0; l < this.route.getRoute().size(); l++){
                     boolean stopFound = false;
-                    System.out.println(tempDist);
                     if(this.route.getRoute().get(l).getStops() != null) {
                         for (int s = 0; s < this.route.getRoute().get(l).getStops().size(); s++) {
                             if (this.getStops().get(i).equals(this.route.getRoute().get(l).getStops().get(s))) {
@@ -307,15 +296,11 @@ public class Vehicle implements Draw, Updater {
                 gui.add(ellipse);
                 gui.get(gui.size() - 1).setVisible(false);
                 if(i%2 == 0) {
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 880, this.getTimelines().get(0).getTimeList().get(i)));
-                    gui.get(gui.size() - 1).setVisible(false);
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 865, this.getStops().get(i).getId()));
+                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 865, this.getStops().get(i).getId()+"\n"+this.getTimelines().get(0).getTimeList().get(i)));
                     gui.get(gui.size() - 1).setVisible(false);
                 }
                 else {
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 920, this.getTimelines().get(0).getTimeList().get(i)));
-                    gui.get(gui.size() - 1).setVisible(false);
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 935, this.getStops().get(i).getId()));
+                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 935,this.getStops().get(i).getId()+"\n"+this.getTimelines().get(0).getTimeList().get(i)));
                     gui.get(gui.size() - 1).setVisible(false);
                 }
             }
@@ -345,7 +330,6 @@ public class Vehicle implements Draw, Updater {
 
                 for(int l = 0; l < this.route.getRoute().size(); l++){
                     boolean stopFound = false;
-                    System.out.println(tempDist);
                     if(this.route.getRoute().get(l).getStops() != null) {
                         for (int s = 0; s < this.route.getRoute().get(l).getStops().size(); s++) {
                             if (this.getStops().get(i).equals(this.route.getRoute().get(l).getStops().get(s))) {
@@ -376,15 +360,11 @@ public class Vehicle implements Draw, Updater {
                 gui.add(ellipse);
                 gui.get(gui.size() - 1).setVisible(false);
                 if(i%2 == 0) {
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 930, this.getTimelines().get(0).getTimeList().get(i)));
-                    gui.get(gui.size() - 1).setVisible(false);
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 915, this.getStops().get(i).getId()));
+                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 915, this.getStops().get(i).getId()+"\n"+this.getTimelines().get(0).getTimeList().get(i)));
                     gui.get(gui.size() - 1).setVisible(false);
                 }
                 else {
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 970, this.getTimelines().get(0).getTimeList().get(i)));
-                    gui.get(gui.size() - 1).setVisible(false);
-                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 985, this.getStops().get(i).getId()));
+                    gui.add(new Text((800 * (tempDist / this.route.getRouteLength())) - 20, 985, this.getStops().get(i).getId()+"\n"+this.getTimelines().get(0).getTimeList().get(i)));
                     gui.get(gui.size() - 1).setVisible(false);
                 }
             }
@@ -414,11 +394,8 @@ public class Vehicle implements Draw, Updater {
      * @param time - new localtime which was changed by user
      */
     public void handlePort(int delay, LocalTime time) {
-      //  if (this.line == 2) counter++;
         for (int i = timelineiterator; i <= timelines.size() - 1; i++){
-           /* if (counter == 1){
-                System.out.println("ahoj");
-            }*/
+
             int currentTime = parseTimeString(time.toString()) - 1;
             int lastScheduledTime = parseTimeString(timelines.get(i).getTimeList().get(timelines.get(i).getTimeList().size()-1));
 
@@ -443,9 +420,7 @@ public class Vehicle implements Draw, Updater {
                 }
             }
         }
-        //System.out.println(timelineiterator);
 
-        //if (!this.gui.get(0).isVisible()) this.gui.get(0).setVisible(true);
 
         for (int i = 0; i < timelines.get(timelineiterator).getTimeList().size() - 1; i++) {
             int start = parseTimeString(timelines.get(timelineiterator).getStartTime());
@@ -645,15 +620,55 @@ public class Vehicle implements Draw, Updater {
                    if (distance > route.getRouteLength()) {
                        if (this.line == 1) {
                            timelineiterator1++;
+                           int stopiterator = 0;
+                           for(Shape shape : this.getGUI()){
+                               if(shape instanceof Text){
+                                   String a = ((Text) shape).getText();
+                                   a = a.substring(0,a.length()-8);
+                                   a = a + this.getTimelines().get(timelineiterator1).getTimeList().get(stopiterator);
+                                   ((Text) shape).setText(a);
+                                   stopiterator++;
+                               }
+                           }
                            stopCountLine1 = 0;
                        } else if (this.line == 2) {
                            timelineiterator2++;
+                           int stopiterator = 0;
+                           for(Shape shape : this.getGUI()){
+                               if(shape instanceof Text){
+                                   String a = ((Text) shape).getText();
+                                   a = a.substring(0,a.length()-8);
+                                   a = a + this.getTimelines().get(timelineiterator2).getTimeList().get(stopiterator);
+                                   ((Text) shape).setText(a);
+                                   stopiterator++;
+                               }
+                           }
                            stopCountLine2 = 0;
                        } else if (this.line == 3) {
                            timelineiterator3++;
+                           int stopiterator = 0;
+                           for(Shape shape : this.getGUI()){
+                               if(shape instanceof Text){
+                                   String a = ((Text) shape).getText();
+                                   a = a.substring(0,a.length()-8);
+                                   a = a + this.getTimelines().get(timelineiterator3).getTimeList().get(stopiterator);
+                                   ((Text) shape).setText(a);
+                                   stopiterator++;
+                               }
+                           }
                            stopCountLine3 = 0;
                        } else if (this.line == 4) {
                            timelineiterator4++;
+                           int stopiterator = 0;
+                           for(Shape shape : this.getGUI()){
+                               if(shape instanceof Text){
+                                   String a = ((Text) shape).getText();
+                                   a = a.substring(0,a.length()-8);
+                                   a = a + this.getTimelines().get(timelineiterator4).getTimeList().get(stopiterator);
+                                   ((Text) shape).setText(a);
+                                   stopiterator++;
+                               }
+                           }
                            stopCountLine4 = 0;
                        }
                        distance = 0;
@@ -702,7 +717,6 @@ public class Vehicle implements Draw, Updater {
             for(Street s : streets){
                 currStreet = s;
                 if(isOnCurrStreet()){
-                    System.out.println("Line " + line +" Current Street is: " + currStreet.getName());
                     break;
                 }
             }
@@ -775,5 +789,9 @@ public class Vehicle implements Draw, Updater {
             value.setGui();
             return value;
         }
+    }
+
+    public void setStops(List<Stop> stops) {
+        this.stops = stops;
     }
 }

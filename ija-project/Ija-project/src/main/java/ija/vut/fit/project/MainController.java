@@ -49,6 +49,14 @@ public class MainController {
     private List<Street> newList2 = new ArrayList<>();
     private List<Street> newList3 = new ArrayList<>();
     private List<Street> newList4 = new ArrayList<>();
+    private List<Stop> origStops1 = new ArrayList<>();
+    private List<Stop> origStops2 = new ArrayList<>();
+    private List<Stop> origStops3 = new ArrayList<>();
+    private List<Stop> origStops4 = new ArrayList<>();
+    private List<Street> origRoute1 = new ArrayList<>();
+    private List<Street> origRoute2 = new ArrayList<>();
+    private List<Street> origRoute3 = new ArrayList<>();
+    private List<Street> origRoute4 = new ArrayList<>();
     private static boolean newRoute = false;
     private static boolean newRoute1 = false;
     private static boolean newRoute2 = false;
@@ -148,22 +156,18 @@ public class MainController {
                                             if (newRoute1) {
                                                 if (!newList1.contains(draw)) {
                                                     newList1.add((Street) draw);
-                                                    //System.out.println(lol);
                                                 }
                                             } else if (newRoute2) {
                                                 if (!newList2.contains(draw)) {
                                                     newList2.add((Street) draw);
-                                                    System.out.println(newList2);
                                                 }
                                             } else if (newRoute3) {
                                                 if (!newList3.contains(draw)) {
                                                     newList3.add((Street) draw);
-                                                    //System.out.println(newList2);
                                                 }
                                             } else if (newRoute4) {
                                                 if (!newList4.contains(draw)) {
                                                     newList4.add((Street) draw);
-                                                    //System.out.println(newList2);
                                                 }
                                             }
                                         } else if (((Street) draw).traffic == 100) {
@@ -185,7 +189,6 @@ public class MainController {
                                 }
                             }
                             else if(event.getButton().equals(MouseButton.SECONDARY)){
-                                System.out.println("Prave tlacitko");
                                 for (Shape shape : draw.getGUI()) {
                                     if (shape instanceof Line) {
                                         if (!((Street) draw).closed) {
@@ -199,6 +202,14 @@ public class MainController {
                                             shape.setStroke(Color.BLACK);
                                             ((Street) draw).closed = false;
                                             newRoute = false;
+                                            updates.get(0).getRoute().setRoute(origRoute1);
+                                            updates.get(1).getRoute().setRoute(origRoute2);
+                                            updates.get(2).getRoute().setRoute(origRoute3);
+                                            updates.get(3).getRoute().setRoute(origRoute4);
+                                            ((Vehicle) updates.get(0)).setStops(origStops1);
+                                            ((Vehicle) updates.get(1)).setStops(origStops2);
+                                            ((Vehicle) updates.get(2)).setStops(origStops3);
+                                            ((Vehicle) updates.get(3)).setStops(origStops4);
                                         }
                                     }
                                 }
@@ -206,9 +217,7 @@ public class MainController {
                         }
                     });
                 }
-                /*Shape s = draw.getGUI().get(0);
-                s.setFill(Color.PINK);
-                paneContent.getChildren().add(s);*/
+
             }
             if (draw instanceof Vehicle){
                 draw.getGUI().get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -230,7 +239,6 @@ public class MainController {
                 updates.add((Updater) draw);
             }
         }
-     //   this.getVehicles();
     }
 
    public void getVehicles(){
@@ -283,30 +291,24 @@ public class MainController {
        }
     }
 
-  // int a = 0;
-    /*public void setNewRoute(int vehicle){
-        a = vehicle;
-       //List<Street> lol = new ArrayList<>();
-        for (Draw draw : contents) {
-            draw.getGUI().get(0).setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (event.getButton().equals(MouseButton.PRIMARY)) {
-                        if (draw instanceof Street) {
-                            if (!newList.contains(draw)) {
-                                newList.add((Street) draw);
-                                //System.out.println(lol);
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    }*/
-
     public void confirm(){
         String line = (String) choiceBox.getValue();
-        System.out.println(line);
+        origRoute1.clear();
+        origRoute2.clear();
+        origRoute3.clear();
+        origRoute4.clear();
+        origStops1.clear();
+        origStops2.clear();
+        origStops3.clear();
+        origStops4.clear();
+        origRoute1.addAll(updates.get(0).getRoute().getRoute());
+        origRoute2.addAll(updates.get(1).getRoute().getRoute());
+        origRoute3.addAll(updates.get(2).getRoute().getRoute());
+        origRoute4.addAll(updates.get(3).getRoute().getRoute());
+        origStops1.addAll(updates.get(0).getStops());
+        origStops2.addAll(updates.get(1).getStops());
+        origStops3.addAll(updates.get(2).getStops());
+        origStops4.addAll(updates.get(3).getStops());
         switch (line) {
             case "Line 1 (BLUE)":
                 updates.get(0).getRoute().getRoute().clear();

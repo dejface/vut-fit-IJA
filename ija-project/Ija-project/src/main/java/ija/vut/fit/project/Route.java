@@ -85,5 +85,9 @@ public class Route {
     public List<Street> getRoute() {
         return route;
     }
+
+    public void setRoute(List<Street> route) {
+        this.route = route;
+    }
 }
 
